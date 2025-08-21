@@ -1,13 +1,13 @@
 
 from sdks.novavision.src.helper.package import PackageHelper
-from components.Package.src.models.PackageModel import PackageModel, PackageConfigs, ConfigExecutor, PackageOutputs, PackageResponse, PackageExecutor, OutputImage
+from capsules.VisionAPI.src.models.PackageModel import PackageModel, PackageConfigs, ConfigExecutor, VisionAPIOutputs, VisionAPIResponse, VisionAPI, OutputImage
 
 
 def build_response(context):
     outputImage = OutputImage(value=context.image)
-    Outputs = PackageOutputs(outputImage=outputImage)
-    packageResponse = PackageResponse(outputs=Outputs)
-    packageExecutor = PackageExecutor(value=packageResponse)
+    Outputs = VisionAPI(outputImage=outputImage)
+    packageResponse = VisionAPIResponse(outputs=Outputs)
+    packageExecutor = VisionAPI(value=packageResponse)
     executor = ConfigExecutor(value=packageExecutor)
     packageConfigs = PackageConfigs(executor=executor)
     package = PackageHelper(packageModel=PackageModel, packageConfigs=packageConfigs)
