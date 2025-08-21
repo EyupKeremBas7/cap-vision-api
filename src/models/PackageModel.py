@@ -39,7 +39,7 @@ class ConfigGoogleToken(Config):
     """
     name: Literal["GoogleToken"] = "GoogleToken"
     value: str
-    type: Literal["string"] = "string"a
+    type: Literal["string"] = "string"
     field: Literal["textInput"] = "textInput"
 
     class Config:
