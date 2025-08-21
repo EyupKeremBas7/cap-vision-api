@@ -101,5 +101,5 @@ class PackageConfigs(Configs):
 
 class PackageModel(Package):
     configs: PackageConfigs
-    type: Literal["component"] = "component"
+    type: Literal["capsule"] = "capsule"
     name: Literal["VisionAPI"] = "VisionAPI"
