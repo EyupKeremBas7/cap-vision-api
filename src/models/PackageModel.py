@@ -55,7 +55,7 @@ class VisionAPIOutputs(Outputs):
 
 class VisionAPIRequest(Request):
     inputs: Optional[VisionAPIInputs]
-    configs: VisioNAPIConfigs
+    configs: VisionAPIConfigs
 
     class Config:
         json_schema_extra = {
