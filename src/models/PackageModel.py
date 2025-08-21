@@ -5,6 +5,7 @@ from sdks.novavision.src.base.model import Package, Image, Inputs, Configs, Outp
 
 
 class InputImage(Input):
+    
     name: Literal["inputImage"] = "inputImage"
     value: Union[List[Image], Image]
     type: str = "object"
@@ -21,8 +22,8 @@ class InputImage(Input):
         title = "Image"
 
 
-class OutputCaption(Output):
-    name: Literal["outputCaption"] = "outputCaption"
+class OutputDetection(Output):
+    name: Literal["outputDetection"] = "outputDetection"
     value: str
     type: Literal["string"] = "string"
 
@@ -50,7 +51,7 @@ class VisionAPIConfigs(Configs):
 
 
 class VisionAPIOutputs(Outputs):
-    outputCaption : OutputCaption
+    outputDetection : OutputDetection
 
 
 class VisionAPIRequest(Request):
@@ -84,7 +85,7 @@ class VisionAPI(Config):
 
 class ConfigExecutor(Config):
     name: Literal["ConfigExecutor"] = "ConfigExecutor"
-    value: Union[VisionAPI]
+    value: VisionAPI
     type: Literal["executor"] = "executor"
     field: Literal["dependentDropdownlist"] = "dependentDropdownlist"
 
