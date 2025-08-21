@@ -39,13 +39,13 @@ class ConfigGoogleToken(Config):
     """
     name: Literal["GoogleToken"] = "GoogleToken"
     value: str
-    type: Literal["string"] = "string"
+    type: Literal["string"] = "string"a
     field: Literal["textInput"] = "textInput"
 
     class Config:
         title = "Google API Token"
 
-class PackageConfigs(Configs):
+class VisionAPIConfigs(Configs):
     configGoogleToken : ConfigGoogleToken
 
 
@@ -55,7 +55,7 @@ class VisionAPIOutputs(Outputs):
 
 class VisionAPIRequest(Request):
     inputs: Optional[VisionAPIInputs]
-    configs: PackageConfigs
+    configs: VisioNAPIConfigs
 
     class Config:
         json_schema_extra = {
