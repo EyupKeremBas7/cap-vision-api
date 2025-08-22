@@ -43,16 +43,16 @@ class ConfigGoogleToken(Config):
         title = "Google API Token"
 
 
-class VisionAPIConfigs(Configs):
+class VisionApiConfigs(Configs):
     configGoogleToken: ConfigGoogleToken
 
-class VisionAPIOutputs(Outputs):
+class VisionApiOutputs(Outputs):
     outputDetection: OutputDetection
 
 
-class VisionAPIRequest(Request):
+class VisionApiRequest(Request):
     inputs: Optional[VisionAPIInputs]
-    configs: VisionAPIConfigs
+    configs: VisionApiConfigs
     
     class Config:
         json_schema_extra = {
@@ -60,18 +60,18 @@ class VisionAPIRequest(Request):
         }
 
 
-class VisionAPIResponse(Response):
-    outputs: VisionAPIOutputs
+class VisionApiResponse(Response):
+    outputs: VisionApiOutputs
 
 
-class VisionAPI(Config):
-    name: Literal["VisionAPI"] = "VisionAPI"
-    value: Union[VisionAPIRequest, VisionAPIResponse]
+class VisionApi(Config):
+    name: Literal["VisionApi"] = "VisionApi"
+    value: Union[VisionApiRequest, VisionApiResponse]
     type: Literal["object"] = "object"
     field: Literal["option"] = "option"
 
     class Config:
-        title = "VisionAPI"
+        title = "VisionApi"
         json_schema_extra = {
             "target": {
                 "value": 0
@@ -81,7 +81,7 @@ class VisionAPI(Config):
 
 class ConfigExecutor(Config):
     name: Literal["ConfigExecutor"] = "ConfigExecutor"
-    value: Union[VisionAPI]
+    value: Union[VisionApi]
     type: Literal["executor"] = "executor"
     field: Literal["dependentDropdownlist"] = "dependentDropdownlist"
 
