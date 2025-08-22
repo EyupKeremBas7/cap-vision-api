@@ -34,9 +34,6 @@ class VisionAPIInputs(Inputs):
 
 
 class ConfigGoogleToken(Config):
-    """
-    Google API token'ı için config ayarı. Bu token, Google servislerine erişim için gereklidir.
-    """
     name: Literal["GoogleToken"] = "GoogleToken"
     value: str
     type: Literal["string"] = "string"
