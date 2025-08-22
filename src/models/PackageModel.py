@@ -46,45 +46,8 @@ class ConfigGoogleToken(Config):
         title = "Google API Token"
 
 
-class ConfigDeviceGPU(Config):
-    name: Literal["ConfigDeviceGPU"] = "ConfigDeviceGPU"
-    value: Literal["GPU"] = "GPU"
-    type: Literal["string"] = "string"
-    field: Literal["option"] = "option"
-
-    class Config:
-        title = "GPU"
-
-
-class ConfigDeviceCPU(Config):
-    name: Literal["ConfigDeviceCPU"] = "ConfigDeviceCPU"
-    value: Literal["CPU"] = "CPU"
-    type: Literal["string"] = "string"
-    field: Literal["option"] = "option"
-
-    class Config:
-        title = "CPU"
-
-
-class ConfigDevice(Config):
-    """
-    It refers to whether the model should run on a CPU or a GPU.
-    You can select the device type for inference or training process.
-    """
-    name: Literal["ConfigDevice"] = "ConfigDevice"
-    value: Union[ConfigDeviceCPU, ConfigDeviceGPU]
-    type: Literal["object"] = "object"
-    field: Literal["dropdownlist"] = "dropdownlist"
-    restart: Literal[True] = True
-
-    class Config:
-        title = "Device"
-
-
 class VisionAPIConfigs(Configs):
     configGoogleToken: ConfigGoogleToken
-    configDevice: ConfigDevice
-
 
 class VisionAPIOutputs(Outputs):
     outputDetection: OutputDetection
