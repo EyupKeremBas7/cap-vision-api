@@ -64,7 +64,7 @@ class VisionAPIResponse(Response):
     outputs: VisionAPIOutputs
 
 
-class VisionAPIExecutor(Config):
+class VisionAPI(Config):
     name: Literal["VisionAPI"] = "VisionAPI"
     value: Union[VisionAPIRequest, VisionAPIResponse]
     type: Literal["object"] = "object"
@@ -81,7 +81,7 @@ class VisionAPIExecutor(Config):
 
 class ConfigExecutor(Config):
     name: Literal["ConfigExecutor"] = "ConfigExecutor"
-    value: Union[VisionAPIExecutor]
+    value: Union[VisionAPI]
     type: Literal["executor"] = "executor"
     field: Literal["dependentDropdownlist"] = "dependentDropdownlist"
 
