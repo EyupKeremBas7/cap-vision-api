@@ -1,24 +1,23 @@
-
-from pydantic import Field, validator
+from pydantic import Field,field_validator
 from typing import List, Optional, Union, Literal
-from sdks.novavision.src.base.model import Package, Inputs, Configs, Outputs, Response, Request, Output, Input, Config, Image
+from sdks.novavision.src.base.model import Package, Image, Inputs, Configs, Outputs, Response, Request, Output, Input, Config
 
 
 class InputImage(Input):
     name: Literal["inputImage"] = "inputImage"
-    value: Union[List[Image],Image]
-    type: str  = "object"
+    value: Union[List[Image], Image]
+    type: str = "object"
 
-    @validator("type", pre=True, always=True)
+    @field_validator("type", pre=True, always=True)
     def set_type_based_on_value(cls, value, values):
         value = values.get('value')
         if isinstance(value, Image):
             return "object"
         elif isinstance(value, list):
             return "list"
+        
     class Config:
-        title="Image"
-
+        title = "Image"
 
 
 class OutputDetection(Output):
@@ -34,17 +33,18 @@ class VisionAPIInputs(Inputs):
     inputImage: InputImage
 
 
-class ConfigTemperature(Config):
+class ConfigGoogleToken(Config):
     """
-    Temperature variable is used to control the randomness of the predictions during decoding. Lower temperatures make the model's predictions more deterministic, while higher temperatures increase diversity and randomness in the generated Detections.
+    Google API token'ı için config ayarı. Bu token, Google servislerine erişim için gereklidir.
     """
-    name: Literal["Temperature"] = "Temperature"
-    value: float = Field(default=0.5, ge=0.2, le=1.0)
-    type: Literal["number"] = "number"
+    name: Literal["GoogleToken"] = "GoogleToken"
+    value: str
+    type: Literal["string"] = "string"
     field: Literal["textInput"] = "textInput"
 
     class Config:
-        title = "Temperature"
+        title = "Google API Token"
+
 
 class ConfigDeviceGPU(Config):
     name: Literal["ConfigDeviceGPU"] = "ConfigDeviceGPU"
@@ -68,8 +68,8 @@ class ConfigDeviceCPU(Config):
 
 class ConfigDevice(Config):
     """
-        It refers to whether the model should run on a CPU or a GPU.
-        You can select the device type for inference or training process.
+    It refers to whether the model should run on a CPU or a GPU.
+    You can select the device type for inference or training process.
     """
     name: Literal["ConfigDevice"] = "ConfigDevice"
     value: Union[ConfigDeviceCPU, ConfigDeviceGPU]
@@ -82,8 +82,8 @@ class ConfigDevice(Config):
 
 
 class VisionAPIConfigs(Configs):
+    configGoogleToken: ConfigGoogleToken
     configDevice: ConfigDevice
-    configTemperature: ConfigTemperature
 
 
 class VisionAPIOutputs(Outputs):
@@ -93,6 +93,7 @@ class VisionAPIOutputs(Outputs):
 class VisionAPIRequest(Request):
     inputs: Optional[VisionAPIInputs]
     configs: VisionAPIConfigs
+    
     class Config:
         json_schema_extra = {
             "target": "configs"
@@ -110,7 +111,7 @@ class VisionAPIExecutor(Config):
     field: Literal["option"] = "option"
 
     class Config:
-        title = "Image Detectioning"
+        title = "Vision API"
         json_schema_extra = {
             "target": {
                 "value": 0
@@ -120,14 +121,14 @@ class VisionAPIExecutor(Config):
 
 class ConfigExecutor(Config):
     name: Literal["ConfigExecutor"] = "ConfigExecutor"
-    value: Union[VisionAPIExecutor]
-    type:Literal["executor"] = "executor"
+    value: VisionAPIExecutor
+    type: Literal["executor"] = "executor"
     field: Literal["dependentDropdownlist"] = "dependentDropdownlist"
 
     class Config:
         title = "Task"
         json_schema_extra = {
-            "target" : "value"
+            "target": "value"
         }
 
 
