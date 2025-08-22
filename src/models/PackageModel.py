@@ -21,22 +21,22 @@ class InputImage(Input):
 
 
 
-class OutputCaption(Output):
-    name: Literal["outputCaption"] = "outputCaption"
+class OutputDetection(Output):
+    name: Literal["outputDetection"] = "outputDetection"
     value: str
     type: Literal["string"] = "string"
 
     class Config:
-        title = "Caption"
+        title = "Detection"
 
 
-class ImageCaptioningInputs(Inputs):
+class VisionAPIInputs(Inputs):
     inputImage: InputImage
 
 
 class ConfigTemperature(Config):
     """
-    Temperature variable is used to control the randomness of the predictions during decoding. Lower temperatures make the model's predictions more deterministic, while higher temperatures increase diversity and randomness in the generated captions.
+    Temperature variable is used to control the randomness of the predictions during decoding. Lower temperatures make the model's predictions more deterministic, while higher temperatures increase diversity and randomness in the generated Detections.
     """
     name: Literal["Temperature"] = "Temperature"
     value: float = Field(default=0.5, ge=0.2, le=1.0)
@@ -81,36 +81,36 @@ class ConfigDevice(Config):
         title = "Device"
 
 
-class ImageCaptioningConfigs(Configs):
+class VisionAPIConfigs(Configs):
     configDevice: ConfigDevice
     configTemperature: ConfigTemperature
 
 
-class ImageCaptioningOutputs(Outputs):
-    outputCaption: OutputCaption
+class VisionAPIOutputs(Outputs):
+    outputDetection: OutputDetection
 
 
-class ImageCaptioningRequest(Request):
-    inputs: Optional[ImageCaptioningInputs]
-    configs: ImageCaptioningConfigs
+class VisionAPIRequest(Request):
+    inputs: Optional[VisionAPIInputs]
+    configs: VisionAPIConfigs
     class Config:
         json_schema_extra = {
             "target": "configs"
         }
 
 
-class ImageCaptioningResponse(Response):
-    outputs: ImageCaptioningOutputs
+class VisionAPIResponse(Response):
+    outputs: VisionAPIOutputs
 
 
-class ImageCaptioningExecutor(Config):
-    name: Literal["ImageCaptioning"] = "ImageCaptioning"
-    value: Union[ImageCaptioningRequest, ImageCaptioningResponse]
+class VisionAPIExecutor(Config):
+    name: Literal["VisionAPI"] = "VisionAPI"
+    value: Union[VisionAPIRequest, VisionAPIResponse]
     type: Literal["object"] = "object"
     field: Literal["option"] = "option"
 
     class Config:
-        title = "Image Captioning"
+        title = "Image Detectioning"
         json_schema_extra = {
             "target": {
                 "value": 0
@@ -120,7 +120,7 @@ class ImageCaptioningExecutor(Config):
 
 class ConfigExecutor(Config):
     name: Literal["ConfigExecutor"] = "ConfigExecutor"
-    value: Union[ImageCaptioningExecutor]
+    value: Union[VisionAPIExecutor]
     type:Literal["executor"] = "executor"
     field: Literal["dependentDropdownlist"] = "dependentDropdownlist"
 
@@ -138,4 +138,4 @@ class PackageConfigs(Configs):
 class PackageModel(Package):
     configs: PackageConfigs
     type: Literal["capsule"] = "capsule"
-    name: Literal["ImageCaptioning"] = "ImageCaptioning"
+    name: Literal["VisionAPI"] = "VisionAPI"
