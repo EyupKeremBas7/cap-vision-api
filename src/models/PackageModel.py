@@ -99,4 +99,4 @@ class PackageConfigs(Configs):
 class PackageModel(Package):
     configs: PackageConfigs
     type: Literal["capsule"] = "capsule"
-    name: Literal["VisionApi"] = "VisionApi"
+    name: Literal["VisionAPO"] = "VisionAPI"
