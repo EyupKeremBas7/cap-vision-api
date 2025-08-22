@@ -71,7 +71,7 @@ class VisionAPI(Config):
     field: Literal["option"] = "option"
 
     class Config:
-        title = "Vision API"
+        title = "VisionAPI"
         json_schema_extra = {
             "target": {
                 "value": 0
