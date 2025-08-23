@@ -23,7 +23,7 @@ class InputImage(Input):
 class OutputDetection(Output):
     name: Literal["outputDetection"] = "outputDetection"
     value: str
-    type: Literal["string"] = "string"
+    type: Literal["Object"] = "Object"
 
     class Config:
         title = "Detection"
@@ -64,14 +64,14 @@ class VisionApiResponse(Response):
     outputs: VisionApiOutputs
 
 
-class VisionApi(Config):
+class VisionApiExecutor(Config):
     name: Literal["VisionApi"] = "VisionApi"
     value: Union[VisionApiRequest, VisionApiResponse]
     type: Literal["object"] = "object"
     field: Literal["option"] = "option"
 
     class Config:
-        title = "VisionApi"
+        title = "Vision Api"
         json_schema_extra = {
             "target": {
                 "value": 0
@@ -81,7 +81,7 @@ class VisionApi(Config):
 
 class ConfigExecutor(Config):
     name: Literal["ConfigExecutor"] = "ConfigExecutor"
-    value: Union[VisionApi]
+    value: Union[VisionApiExecutor]
     type: Literal["executor"] = "executor"
     field: Literal["dependentDropdownlist"] = "dependentDropdownlist"
 
