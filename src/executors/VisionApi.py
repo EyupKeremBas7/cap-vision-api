@@ -62,8 +62,8 @@ class VisionApi(Capsule):
         return full_text
 
 
-    def parse_detections(self,data_str: str):
-        detections = []
+    def parse_detections(self, data_str: str):
+        detections = {}
         for line in data_str.strip().splitlines():
             match = re.match(r"\s*-\s*'(?P<text>.*?)'\s*Konum:\s*(?P<bbox>.*)", line)
             if match:
@@ -71,7 +71,7 @@ class VisionApi(Capsule):
                 bbox_str = match.group("bbox")
                 coords = re.findall(r"\((\d+),(\d+)\)", bbox_str)
                 bbox = [(int(x), int(y)) for x,y in coords]
-                detections.append({"text": text, "bbox": bbox})
+                detections[text] = bbox
         return detections
 
 
