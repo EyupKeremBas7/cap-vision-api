@@ -22,8 +22,8 @@ class InputImage(Input):
 
 class OutputDetection(Output):
     name: Literal["outputDetection"] = "outputDetection"
-    value: object
-    type: Literal["object"] = "object"
+    value: str
+    type: Literal["string"] = "string"
     class Config:
         title = "Detection"
 
@@ -44,6 +44,7 @@ class ConfigGoogleToken(Config):
 
 class VisionApiConfigs(Configs):
     configGoogleToken: ConfigGoogleToken
+
 
 class VisionApiOutputs(Outputs):
     outputDetection: OutputDetection
