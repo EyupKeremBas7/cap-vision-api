@@ -23,7 +23,7 @@ class InputImage(Input):
 class OutputDetection(Output):
     name: Literal["outputDetection"] = "outputDetection"
     value: str
-    type: Literal["Object"] = "Object"
+    type: Literal["string"] = "string"
 
     class Config:
         title = "Detection"
