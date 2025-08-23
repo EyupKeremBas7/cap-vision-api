@@ -19,6 +19,7 @@ class VisionApi(Capsule):
         super().__init__(request, bootstrap)
         self.request.model = PackageModel(**(self.request.data))
         self.image = self.request.get_param("inputImage")
+        self.text = ""
 
     @staticmethod
     def bootstrap(config: dict) -> dict:
@@ -32,8 +33,6 @@ class VisionApi(Capsule):
             image_path: Algılanacak metnin bulunduğu resim dosyasının yolu.
         """
         client = vision.ImageAnnotatorClient()
-
-        # Encode numpy array to bytes
         _, buffer = cv2.imencode('.jpg', image)
         image_bytes = buffer.tobytes()
         image = vision.Image(content=image_bytes)
@@ -64,9 +63,8 @@ class VisionApi(Capsule):
 
     def run(self):
         img = Image.get_frame(img=self.image, redis_db=self.redis_db)
-        text = self.detect_text_from_local_image(img.value)
-        print(type(text))
-        print(text)
+        self.text = self.detect_text_from_local_image(img.value)
+        print(type(self.text))
         self.image = Image.set_frame(img=img, package_uID=self.uID, redis_db=self.redis_db)
         packageModel = build_response(context=self)
         return packageModel

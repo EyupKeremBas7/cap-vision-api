@@ -22,8 +22,8 @@ class InputImage(Input):
 
 class OutputDetection(Output):
     name: Literal["outputDetection"] = "outputDetection"
-    value: str
-    type: Literal["Object"] = "Object"
+    value: object
+    type: Literal["object"] = "object"
 
     class Config:
         title = "Detection"

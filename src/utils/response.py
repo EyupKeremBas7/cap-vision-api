@@ -4,7 +4,7 @@ from capsules.VisionApi.src.models.PackageModel import PackageModel, PackageConf
 
 
 def build_response(context):
-    outputImage = OutputDetection(value=context.image)
+    outputImage = OutputDetection(value=context.text)
     Outputs = VisionApiOutputs(outputImage=outputImage)
     packageResponse = VisionApiResponse(outputs=Outputs)
     packageExecutor = VisionApiExecutor(value=packageResponse)
