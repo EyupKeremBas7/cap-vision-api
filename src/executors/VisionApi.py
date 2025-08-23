@@ -1,10 +1,11 @@
 import os
 import cv2
 import sys
+
 from google.cloud import vision
-import os
-import io
-import re
+from google_auth_oauthlib.flow import InstalledAppFlow
+from google.auth.transport.requests import Request
+
 
 sys.path.append(os.path.join(os.path.dirname(__file__), '../../../../'))
 
@@ -13,7 +14,7 @@ from sdks.novavision.src.base.capsule import Capsule
 from sdks.novavision.src.helper.executor import Executor
 from capsules.VisionApi.src.utils.response import build_response
 from capsules.VisionApi.src.models.PackageModel import PackageModel
-
+from capsules.VisionApi.src.utils.utils import API_AUTH
 
 class VisionApi(Capsule):
     def __init__(self, request, bootstrap):
@@ -24,7 +25,18 @@ class VisionApi(Capsule):
 
     @staticmethod
     def bootstrap(config: dict) -> dict:
+        #API_AUTH()
         return {}
+    
+    def API_AUTH():
+        client_secret_path = 'storage/client_secret.json'
+        if not os.path.exists(client_secret_path):
+            raise FileNotFoundError(f"client_secret.json dosyası bulunamadı: {client_secret_path}")
+        flow = InstalledAppFlow.from_client_secrets_file(
+            client_secret_path,
+            scopes=['https://www.googleapis.com/auth/cloud-platform']
+        )
+        creds = flow.run_console()
 
     def detect_text_from_local_image(self, image):
         """
@@ -62,25 +74,10 @@ class VisionApi(Capsule):
         return full_text
 
 
-    def parse_detections(self,data_str: str):
-        detections = []
-        for line in data_str.strip().splitlines():
-            match = re.match(r"\s*-\s*'(?P<text>.*?)'\s*Konum:\s*(?P<bbox>.*)", line)
-            if match:
-                text = match.group("text")
-                bbox_str = match.group("bbox")
-                coords = re.findall(r"\((\d+),(\d+)\)", bbox_str)
-                bbox = [(int(x), int(y)) for x,y in coords]
-                detections.append({"text": text, "bbox": bbox})
-        return detections
-
-
-
     def run(self):
+        API_AUTH()
         img = Image.get_frame(img=self.image, redis_db=self.redis_db)
         self.text = self.detect_text_from_local_image(img.value)
-        self.text = self.parse_detections(self.text)
-        print(type(self.text))
         self.image = Image.set_frame(img=img, package_uID=self.uID, redis_db=self.redis_db)
         packageModel = build_response(context=self)
         return packageModel
