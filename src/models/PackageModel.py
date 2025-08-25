@@ -33,7 +33,7 @@ class VisionAPIInputs(Inputs):
 
 class StorageSource(Config):
     """
-        Is corresponds to path of the video.
+        Is corresponds to path of the client_secret.json.
     """
     name: Literal["storageSource"] = "storageSource"
     value: int
@@ -54,6 +54,9 @@ class StorageSource(Config):
         title = "Storage Source"
 
 class StoragePath(Config):
+    """
+        Put your client_secret.json file to your local applications storage
+    """
     name: Literal["StoragePath"] = "StoragePath"
     value: str
     type: Literal["string"] = "string"
@@ -71,9 +74,7 @@ class ConfigStorage(Config):
         title = "Storage Source"
 
 class ConfigPath(Config):
-    """
-        Put your client_secret.json file to your local applications storage
-    """
+
     name: Literal["ConfigPath"] = "ConfigPath"
     storagePath: StoragePath
     value: Literal["ConfigPath"] = "ConfigPath"
