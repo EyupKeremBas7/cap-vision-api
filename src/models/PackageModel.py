@@ -75,7 +75,7 @@ class ConfigPath(Config):
         Put your client_secret.json file to your local applications storage
     """
     name: Literal["ConfigPath"] = "ConfigPath"
-    storagePath: StorageSource
+    storagePath: StoragePath
     value: Literal["ConfigPath"] = "ConfigPath"
     type: Literal["string"] = "string"
     field: Literal["option"] = "option"
