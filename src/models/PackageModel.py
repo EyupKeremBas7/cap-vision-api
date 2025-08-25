@@ -31,19 +31,67 @@ class OutputDetection(Output):
 class VisionAPIInputs(Inputs):
     inputImage: InputImage
 
-
-class ConfigGoogleToken(Config):
-    name: Literal["GoogleToken"] = "GoogleToken"
-    value: str
-    type: Literal["string"] = "string"
-    field: Literal["textInput"] = "textInput"
+class StorageSource(Config):
+    """
+        Is corresponds to path of the video.
+    """
+    name: Literal["storageSource"] = "storageSource"
+    value: int
+    type: Literal["number"] = "number"
+    field: Literal["filePicker"] = "filePicker"
 
     class Config:
-        title = "Google API Token"
+        json_schema_extra = {
+            "class": "portalium\\storage\\widgets\\FilePicker",
+            "options": {
+                "multiple": 0,
+                "returnAttribute": [
+                    "name"
+                ],
+                "name": "app::logo_wide"
+            }
+        }
+        title = "Storage Source"
+
+class ConfigStorage(Config):
+    name: Literal["ConfigStorage"] = "ConfigStorage"
+    storageSource: StorageSource
+    value: Literal["ConfigStorage"] = "ConfigStorage"
+    type: Literal["string"] = "string"
+    field: Literal["option"] = "option"
+
+    class Config:
+        title = "Storage"
+
+class StoragePath:
+    """
+        Put your client_secret.json file to your local applications storage
+    """
+    name: Literal["StoragePath"] = "StoragePath"
+    storageSource: StorageSource
+    value: Literal["StoragePath"] = "StoragePath"
+    type: Literal["string"] = "string"
+    field: Literal["option"] = "option"
+
+    class Config:
+        title = "Storage"
+
+class TokenSelection(Config):
+    """
+        Controls whether frames follow the flow sequence.
+    """
+    name: Literal["TokenSelection"] = "TokenSelection"
+    value: Union[StoragePath,ConfigStorage ]
+    type: Literal["object"] = "object"
+    field: Literal["dependentDropdownlist"] = "dependentDropdownlist"
+    restart: Literal[True] = True
+
+    class Config:
+        title = "Flow Rate"
 
 
 class VisionApiConfigs(Configs):
-    configGoogleToken: ConfigGoogleToken
+    TokenSelection: TokenSelection
 
 
 class VisionApiOutputs(Outputs):
