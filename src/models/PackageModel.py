@@ -61,7 +61,7 @@ class ConfigStorage(Config):
     field: Literal["option"] = "option"
 
     class Config:
-        title = "Storage"
+        title = "Storage Source"
 
 class StoragePath(Config):
     name: Literal["StoragePath"] = "StoragePath"
@@ -69,7 +69,8 @@ class StoragePath(Config):
     type: Literal["string"] = "string"
     field: Literal["filePicker"] = "filePicker"
     class Config:
-        title = "Storage Path"
+        title = "Local Path"
+
 class ConfigPath(Config):
     """
         Put your client_secret.json file to your local applications storage
@@ -81,7 +82,7 @@ class ConfigPath(Config):
     field: Literal["option"] = "option"
 
     class Config:
-        title = "Storage"
+        title = "Local Path"
 
 class TokenSelection(Config):
     """
