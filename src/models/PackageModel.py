@@ -53,6 +53,13 @@ class StorageSource(Config):
         }
         title = "Storage Source"
 
+class StoragePath(Config):
+    name: Literal["StoragePath"] = "StoragePath"
+    value: str
+    type: Literal["string"] = "string"
+    class Config:
+        title = "Local Path"
+
 class ConfigStorage(Config):
     name: Literal["ConfigStorage"] = "ConfigStorage"
     storageSource: StorageSource
@@ -62,14 +69,6 @@ class ConfigStorage(Config):
 
     class Config:
         title = "Storage Source"
-
-class StoragePath(Config):
-    name: Literal["StoragePath"] = "StoragePath"
-    value: str
-    type: Literal["string"] = "string"
-    field: Literal["filePicker"] = "filePicker"
-    class Config:
-        title = "Local Path"
 
 class ConfigPath(Config):
     """
