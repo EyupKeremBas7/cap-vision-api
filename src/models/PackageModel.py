@@ -95,7 +95,7 @@ class TokenSelection(Config):
     restart: Literal[True] = True
 
     class Config:
-        title = "Token Soource Selection"
+        title = "Token Source Selection"
 
 
 class VisionApiConfigs(Configs):
