@@ -64,12 +64,19 @@ class ConfigStorage(Config):
         title = "Storage"
 
 class StoragePath:
+    name: Literal["StoragePath"] = "StoragePath"
+    value: str
+    type: Literal["string"] = "string"
+    field: Literal["filePicker"] = "filePicker"
+
+
+class ConfigPath:
     """
         Put your client_secret.json file to your local applications storage
     """
-    name: Literal["StoragePath"] = "StoragePath"
-    storageSource: StorageSource
-    value: Literal["StoragePath"] = "StoragePath"
+    name: Literal["ConfigPath"] = "ConfigPath"
+    storagePath: StorageSource
+    value: Literal["ConfigPath"] = "ConfigPath"
     type: Literal["string"] = "string"
     field: Literal["option"] = "option"
 
@@ -81,7 +88,7 @@ class TokenSelection(Config):
         Controls whether frames follow the flow sequence.
     """
     name: Literal["TokenSelection"] = "TokenSelection"
-    value: Union[StoragePath,ConfigStorage ]
+    value: Union[ConfigPath,ConfigStorage ]
     type: Literal["object"] = "object"
     field: Literal["dependentDropdownlist"] = "dependentDropdownlist"
     restart: Literal[True] = True
