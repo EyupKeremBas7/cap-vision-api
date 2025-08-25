@@ -95,7 +95,7 @@ class TokenSelection(Config):
     restart: Literal[True] = True
 
     class Config:
-        title = "Flow Rate"
+        title = "Token Soource Selection"
 
 
 class VisionApiConfigs(Configs):
