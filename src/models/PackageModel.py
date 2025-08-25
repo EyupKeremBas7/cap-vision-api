@@ -155,3 +155,5 @@ class PackageModel(Package):
     configs: PackageConfigs
     type: Literal["capsule"] = "capsule"
     name: Literal["VisionApi"] = "VisionApi"
+    class Config:
+        arbitrary_types_allowed = True
