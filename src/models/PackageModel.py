@@ -33,7 +33,8 @@ class VisionAPIInputs(Inputs):
 
 class StorageSource(Config):
     """
-        Is corresponds to path of the client_secret.json.
+        Represents the source for storage, typically used to specify the path to the client_secret.json file.
+        This configuration is used for selecting files via a file picker widget.
     """
     name: Literal["storageSource"] = "storageSource"
     value: int
@@ -55,7 +56,8 @@ class StorageSource(Config):
 
 class StoragePath(Config):
     """
-        Put your client_secret.json file to your local applications storage
+        Specifies the local path in your application storage where the client_secret.json file should be placed.
+        This configuration helps define the location for authentication credentials.
     """
     name: Literal["StoragePath"] = "StoragePath"
     value: str
@@ -86,7 +88,8 @@ class ConfigPath(Config):
 
 class TokenSelection(Config):
     """
-        Controls whether frames follow the flow sequence.
+        Controls the selection of the token source and manages whether frames follow the flow sequence.
+        Allows switching between different token sources such as local path or storage configuration.
     """
     name: Literal["TokenSelection"] = "TokenSelection"
     value: Union[ConfigPath,ConfigStorage ]
