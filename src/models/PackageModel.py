@@ -63,14 +63,14 @@ class ConfigStorage(Config):
     class Config:
         title = "Storage"
 
-class StoragePath:
+class StoragePath(Config):
     name: Literal["StoragePath"] = "StoragePath"
     value: str
     type: Literal["string"] = "string"
     field: Literal["filePicker"] = "filePicker"
-
-
-class ConfigPath:
+    class Config:
+        title = "Storage Path"
+class ConfigPath(Config):
     """
         Put your client_secret.json file to your local applications storage
     """
@@ -155,5 +155,3 @@ class PackageModel(Package):
     configs: PackageConfigs
     type: Literal["capsule"] = "capsule"
     name: Literal["VisionApi"] = "VisionApi"
-    class Config:
-        arbitrary_types_allowed = True
