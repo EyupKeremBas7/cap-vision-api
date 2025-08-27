@@ -62,6 +62,7 @@ class StoragePath(Config):
     name: Literal["StoragePath"] = "StoragePath"
     value: str
     type: Literal["string"] = "string"
+    field: Literal["text"] = "text"
     class Config:
         title = "Local Path"
 
