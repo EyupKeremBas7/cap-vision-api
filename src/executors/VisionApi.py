@@ -35,6 +35,7 @@ class VisionApi(Capsule):
         Args:
             image_path: Algılanacak metnin bulunduğu resim dosyasının yolu.
         """
+        texts = ""
         client = vision.ImageAnnotatorClient()
         _, buffer = cv2.imencode('.jpg', image)
         image_bytes = buffer.tobytes()
