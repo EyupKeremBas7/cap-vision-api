@@ -62,7 +62,6 @@ class StoragePath(Config):
     name: Literal["StoragePath"] = "StoragePath"
     value: str
     type: Literal["string"] = "string"
-    field: Literal["text"] = "text"
     class Config:
         title = "Local Path"
 
@@ -89,7 +88,7 @@ class ConfigPath(Config):
 
 class TokenSelection(Config):
     """
-        Controls the selection of the token source.
+        Controls the selection of the token source and manages whether frames follow the flow sequence.
         Allows switching between different token sources such as local path or storage configuration.
     """
     name: Literal["TokenSelection"] = "TokenSelection"
