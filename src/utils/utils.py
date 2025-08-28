@@ -4,11 +4,7 @@ import os
 
 
 def API_AUTH():
-    client_secret_path = 'storage/client_secret.json'
+    client_secret_path = '/storage/favorable-valor-469612-u5-5d06c7320e21.json'
+    os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = client_secret_path
     if not os.path.exists(client_secret_path):
         raise FileNotFoundError(f"client_secret.json dosyası bulunamadı: {client_secret_path}")
-    flow = InstalledAppFlow.from_client_secrets_file(
-        client_secret_path,
-        scopes=['https://www.googleapis.com/auth/cloud-platform']
-    )
-    creds = flow.run_console()
