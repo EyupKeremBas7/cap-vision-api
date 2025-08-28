@@ -27,16 +27,6 @@ class VisionApi(Capsule):
     def bootstrap(config: dict) -> dict:
         API_AUTH()
         return {}
-    
-    def API_AUTH():
-        client_secret_path = 'storage/client_secret.json'
-        if not os.path.exists(client_secret_path):
-            raise FileNotFoundError(f"client_secret.json dosyası bulunamadı: {client_secret_path}")
-        flow = InstalledAppFlow.from_client_secrets_file(
-            client_secret_path,
-            scopes=['https://www.googleapis.com/auth/cloud-platform']
-        )
-        creds = flow.run_console()
 
     def detect_text_from_local_image(self, image):
         """
