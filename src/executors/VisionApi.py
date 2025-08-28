@@ -25,7 +25,7 @@ class VisionApi(Capsule):
 
     @staticmethod
     def bootstrap(config: dict) -> dict:
-        #API_AUTH()
+        API_AUTH()
         return {}
     
     def API_AUTH():
@@ -75,7 +75,6 @@ class VisionApi(Capsule):
 
 
     def run(self):
-        API_AUTH()
         img = Image.get_frame(img=self.image, redis_db=self.redis_db)
         self.text = self.detect_text_from_local_image(img.value)
         self.image = Image.set_frame(img=img, package_uID=self.uID, redis_db=self.redis_db)
